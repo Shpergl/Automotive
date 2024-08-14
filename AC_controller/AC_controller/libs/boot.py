@@ -23,45 +23,65 @@ def send(_id, data):
 can.start(speed_cfg=47619)
 
 
-class ADCDevice:
-    def __init__(self, i2c_bus, address=72):
-        self._i2c = i2c_bus
-        self._address = address
-
-    def read_config(self):
-        self._i2c.writeto(self._address, bytearray([1]))
-        result = self._i2c.readfrom(self._address, 2)
-        return result[0] << 8 | result[1]
-
-    def read_value(self):
-        self._i2c.writeto(self._address, bytearray([0]))
-        result = self._i2c.readfrom(self._address, 2)
-        config = self.read_config()
-        config &= ~(7 << 12) & ~(7 << 9)
-        config |= (4 << 12) | (1 << 9) | (1 << 15)
-        config = [int(config >> i & 0xff) for i in (8, 0)]
-        self._i2c.writeto(self._address, bytearray([1] + config))
-        return result[0] << 8 | result [1]
-
-    @staticmethod
-    def val_to_voltage(val, max_val=26100, voltage_ref=5.0):
-        return val/max_val * voltage_ref
-
-from machine import I2C, Pin
-i2c_bus = I2C(1, scl=Pin(31), sda=Pin(32))
+from machine import I2C, Pin, PWM
+from ads1x15 import ADS1115
+i2c_bus = I2C(1, scl=Pin(27), sda=Pin(26))
 devices = i2c_bus.scan()
-for device in devices:
-    print(device)
-
-adc = ADCDevice(i2c_bus)
-print(bin(adc.read_config()))
-
-def measureVoltage():
-    val = adc.read_value()
-    voltage = adc.val_to_voltage(val)
-    print("ADC Value: {}, voltage: {:.3f} V".format(val, voltage))
+adc = ADS1115(i2c_bus, address=72, gain=0)
 
 
+fan = PWM(Pin(16))
+fan.freq(20000)
+
+
+def speed(value):
+    global fan
+    fan.duty_u16(value)
+
+
+import onewire, ds18x20
+
+class TEMP_SENSORS:
+    COOLER = 4
+    MIXED = 5
+
+ONE_WIRE_TEMP_SENSORS = {
+    TEMP_SENSORS.MIXED: b'\x28\x02\xbc\x50\x94\x21\x06\xa8',
+    TEMP_SENSORS.COOLER: b'\x28\xa4\x63\x57\x94\x21\x06\xf1',
+}
+
+ow = onewire.OneWire(Pin(15))
+ds = ds18x20.DS18X20(ow)
+
+
+def round_float(value):
+    return round(value*2)/2
+
+
+def measure():
+    ds.convert_temp()
+    for sensor_name, sensor_id in ONE_WIRE_TEMP_SENSORS.items():
+        print("{}: {}".format(sensor_name, round_float(ds.read_temp(sensor_id))))
+
+
+def handle_timer(_):
+    print("\n")
+    measure()
+    measure_voltage()
+
+from machine import Timer
+timer = Timer(period=10000, mode=Timer.PERIODIC, callback=handle_timer)
+
+
+def measure_voltage():
+    value1 = adc.read(0, 0)
+    value2 = adc.read(0, 1)
+    # print(value1)
+    # print(value2)
+    v1 = adc.raw_to_v(value1)
+    v2 = adc.raw_to_v(value2)
+    print("Voltage1: {}".format(v2))
+    print("Voltage2: {}".format(v1*3))
 
 
 def handle_can_cmd(_):

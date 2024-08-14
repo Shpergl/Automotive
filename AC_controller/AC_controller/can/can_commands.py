@@ -91,6 +91,7 @@ class ExtTempCommand(BaseCommand):
 
 class ParkingCommand(BaseCommand):
     """
+    Custom CAN command
          ID   | byte0 | byte1 | byte2 | byte3 |  byte4  | byte5   |  byte6  |   byte7  |
        0x439  |       |       |       |   -   | FL, FLC | FR, FRC | RR, RRC | RL, RLC  |
 
@@ -309,6 +310,31 @@ class FuelUsageCommand(BaseCommand):
             not_valid, fuel_usage_last_start, fuel_left_in_tank, raw_fuel_left_in_tank))
 
 
+class ACCCommand(BaseCommand):
+    """
+      ID  | byte0  |   byte1   |   byte2   |   byte3    |   byte4  | byte5 | byte6 | byte7 |
+    0x530 |   -    |    ACC    |      -    |  ACPRESS  |      -    |   -   |   -   |   -   |
+
+    byte  |   bit7   |   bit6   |   bit5   |   bit4   |   bit3   |   bit2   |   bit1   |   bit0   |
+    ACC   |  -      |     -    |    -     |   -       |    -     |   ACCON  |     -    |     -    |
+
+    ACPRESS - units in bar
+    Interval 1 sec
+    """
+    def __init__(self):
+        super(ACCCommand, self).__init__()
+        self._controller = None
+        print('ACCCommand init()')
+
+    def _execute(self, msg):
+        data = msg.get('data')
+        # data = bytearray(data)
+        acc_on = data[3] >> 2 & 0x01
+        ac_pressure = data[3]  # bar
+
+        print("acc_on: {}, ac_pressure: {}".format(acc_on, ac_pressure))
+
+
 CANCmdHandlers = {
     CAN_COMMANDS_IDS.DOOR_STATUS: DoorStatusCommand(),
     CAN_COMMANDS_IDS.OUTSIDE_TEMP: ExtTempCommand(),
@@ -321,6 +347,7 @@ CANCmdHandlers = {
     CAN_COMMANDS_IDS.PEDALS_REVERSE_GEAR: PedalsReverseGearCommand(),
     CAN_COMMANDS_IDS.STREERING_WHEEL_AND_VIN: SteeringWheelAndVINCommand(),
     CAN_COMMANDS_IDS.FUEL_USAGE: DummyCommand(),
+    CAN_COMMANDS_IDS.ACC: ACCCommand(),
 
 
     CAN_COMMANDS_IDS.SID_BEEP_REQUEST: DummyCommand(),

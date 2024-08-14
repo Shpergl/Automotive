@@ -1,2 +1,7 @@
 *.pyc
 .idea/
+
+**/History
+**/Project Outputs *
+**/Project Logs *
+**/__Previews

@@ -2,6 +2,11 @@
 .idea/
 
 **/History
+!AC_controller/hw/Project Outputs for AC_controller/Gerber/
 **/Project Outputs *
+
+!**/Project Outputs */Gerber
+!**/Project Outputs */NC Drill
+
 **/Project Logs *
 **/__Previews

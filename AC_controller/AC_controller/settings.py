@@ -1,4 +1,4 @@
-from multimedia_controller.constants import AC_TEMP, FAN_DIR_SERVO_POSITION
+from AC_controller.constants import AC_TEMP, FAN_DIR_SERVO_POSITION
 
 UART_DEBOUNCE_TIMEOUT = 100
 CAN_DEBOUNCE_TIMEOUT = 10
@@ -111,3 +111,5 @@ class R_PARKING_RANGE:
     LC = [0, 1, 2, 4, 6, 8, 9]
     RC = [0, 1, 2, 4, 6, 8, 9]
     R = [0, 1, 2, 4, 6, 8]
+
+PARKING_SENSOR_VALUES_RANGE = [0, 255]

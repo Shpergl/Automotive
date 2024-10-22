@@ -1,10 +1,10 @@
 import time
 
-from multimedia_controller.constants import (UART_COMMANDS, AC_COOL_MODE, AC_STATUS, AC_DUAL_MODE, AC_CYCLE_MODE,
+from AC_controller.constants import (UART_COMMANDS, AC_COOL_MODE, AC_STATUS, AC_DUAL_MODE, AC_CYCLE_MODE,
                                              AC_WINDOW_MAX, AC_COOL_MODE_AUTO, AC_FAN_DIR, AC_REAR_WINDOW_HEAT)
-from multimedia_controller.controllers.climate_controller import get_climate_controller
-from multimedia_controller.helpers.utils import unpack_fan_dir, pack_fan_dir
-from multimedia_controller.settings import UART_DEBOUNCE_TIMEOUT, FAN_SPEED_RANGE
+from AC_controller.controllers.climate_controller import get_climate_controller
+from AC_controller.helpers.utils import unpack_fan_dir, pack_fan_dir
+from AC_controller.settings import UART_DEBOUNCE_TIMEOUT, FAN_SPEED_RANGE
 
 
 class BaseCommand:

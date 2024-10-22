@@ -1,13 +1,13 @@
 from machine import UART, Pin
 
-from multimedia_controller.constants import UART_COMMANDS
-from multimedia_controller.controllers.climate_controller import get_climate_controller
-from multimedia_controller.controllers.door_controller import get_door_controller
-from multimedia_controller.controllers.parking_controller import (get_front_parking_controller,
+from AC_controller.constants import UART_COMMANDS
+from AC_controller.controllers.climate_controller import get_climate_controller
+from AC_controller.controllers.door_controller import get_door_controller
+from AC_controller.controllers.parking_controller import (get_front_parking_controller,
                                                                   get_rear_parking_controller)
-from multimedia_controller.helpers.observer import Observer
-from multimedia_controller import settings
-from multimedia_controller.uart.uart_commands import UARTCmdHandlers
+from AC_controller.helpers.observer import Observer
+from AC_controller import settings
+from AC_controller.uart.uart_commands import UARTCmdHandlers
 
 
 class UARTBus(Observer):

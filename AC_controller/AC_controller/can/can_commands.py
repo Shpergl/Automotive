@@ -1,12 +1,12 @@
 import time
 
-from multimedia_controller.constants import CAN_COMMANDS_IDS, CAN_COMMANDS_NAMES
-from multimedia_controller.controllers.door_controller import get_door_controller
-from multimedia_controller.controllers.climate_controller import get_climate_controller
-from multimedia_controller.controllers.parking_controller import (get_front_parking_controller,
+from AC_controller.constants import CAN_COMMANDS_IDS, CAN_COMMANDS_NAMES
+from AC_controller.controllers.door_controller import get_door_controller
+from AC_controller.controllers.climate_controller import get_climate_controller
+from AC_controller.controllers.parking_controller import (get_front_parking_controller,
                                                                   get_rear_parking_controller)
-from multimedia_controller.helpers.utils import get_16_bit_hex, get_24_bit_hex
-from multimedia_controller.settings import CAN_DEBOUNCE_TIMEOUT
+from AC_controller.helpers.utils import get_16_bit_hex, get_24_bit_hex
+from AC_controller.settings import CAN_DEBOUNCE_TIMEOUT
 
 
 class BaseCommand:
@@ -93,13 +93,7 @@ class ParkingCommand(BaseCommand):
     """
     Custom CAN command
          ID   | byte0 | byte1 | byte2 | byte3 |  byte4  | byte5   |  byte6  |   byte7  |
-       0x439  |       |       |       |   -   | FL, FLC | FR, FRC | RR, RRC | RL, RLC  |
-
-         byte    |   bit7   |   bit6   |   bit5   |   bit4   |   bit3   |   bit2   |   bit1   |   bit0   |
-         FL, FLC |   FLC    |   FLC    |   FLC    |   FLC    |   FL     |   FL     |   FL     |   FL     |
-         FR, FRC |   FRC    |   FRC    |   FRC    |   FRC    |   FR     |   FR     |   FR     |   FR     |
-         RR, RRC |   RRC    |   RRC    |   RRC    |   RRC    |   RR     |   RR     |   RR     |   RR     |
-         RL, RLC |   RLC    |   RLC    |   RLC    |   RLC    |   RL     |   RL     |   RL     |   RL     |
+       0x439  |   RL  |  RLC  |  RRC  |  RR   |    FL   |   FLC   |   FRC   |    FR    |
        """
     def __init__(self):
         super(ParkingCommand, self).__init__()
@@ -107,30 +101,19 @@ class ParkingCommand(BaseCommand):
         self._r_controller = get_rear_parking_controller()
         print('ParkingCommand init()')
 
-    def _unpack_radar_data(self, data):
-        """
-        Unpacking two radar data from one byte (by 4 bits corresponding).
-        Mask: hex(2 ** 4 - 1) = 0x0f
-        """
-        return data >> 4 & 0x0f, data >> 0 & 0x0f
-
     def _execute(self, msg):
         data = msg.get('data')
-        fl, flc = self._unpack_radar_data(data[4])
-        fr, frc = self._unpack_radar_data(data[5])
-        self._f_controller.r = fr
-        self._f_controller.rc = frc
-        self._f_controller.lc = flc
-        self._f_controller.l = fl
-        self._f_controller.send_update()
-
-        rr, rrc = self._unpack_radar_data(data[6])
-        rl, rlc = self._unpack_radar_data(data[7])
-        self._r_controller.r = rr
-        self._r_controller.rc = rrc
-        self._r_controller.lc = rlc
-        self._r_controller.l = rl
+        self._r_controller.l = data[0]
+        self._r_controller.lc = data[1]
+        self._r_controller.rc = data[2]
+        self._r_controller.r = data[3]
         self._r_controller.send_update()
+
+        self._f_controller.l = data[4]
+        self._f_controller.lc = data[5]
+        self._f_controller.rc = data[6]
+        self._f_controller.r = data[7]
+        self._f_controller.send_update()
 
 
 class RPMAndSpeedCommand(BaseCommand):
@@ -244,11 +227,13 @@ class PedalsReverseGearCommand(BaseCommand):
         data = msg.get('data')
         changed = data[0] >> 7 & 0x01
         if changed:
-            kickdown = data[1] >> 5 & 0x01
-            brake = data[1] >> 4 & 0x01
-            brake_clutch = data[1] >> 3 & 0x01
-            brake2 = data[1] >> 1 & 0x01
-            print("kickdown: {}, brake: {}, brake_clutch: {}, brake2: {}".format(kickdown, brake, brake_clutch, brake2))
+            reverse = 1 if data[1] == 0x02 else 0   # 0xff otherwise
+            kickdown = data[2] >> 5 & 0x01
+            brake = data[2] >> 4 & 0x01
+            brake_clutch = data[2] >> 3 & 0x01
+            brake2 = data[2] >> 1 & 0x01
+            print("kickdown: {}, brake: {}, brake_clutch: {}, brake2: {}, reverse: {}".format(
+                kickdown, brake, brake_clutch, brake2, reverse))
 
 
 class SteeringWheelAndVINCommand(BaseCommand):
@@ -333,6 +318,34 @@ class ACCCommand(BaseCommand):
         ac_pressure = data[3]  # bar
 
         print("acc_on: {}, ac_pressure: {}".format(acc_on, ac_pressure))
+
+
+class ACCTempCommand(BaseCommand):
+    """
+      ID  | byte0   |   byte1   |   byte2   |   byte3    |   byte4  | byte5  | byte6 | byte7 |
+    0x520 |  STATE  |    ACC    |      -    |  ACPRESS  |      -    |  TEMP  |   -   |   -   |
+
+    byte    |   bit7   |   bit6   |   bit5   |   bit4   |   bit3   |   bit2   |   bit1   |   bit0   |
+    STATE   | CHANGED  |     -    |    -     |   -      |    -     |    -     |     -    |     -    |
+     ACC    | COMPRESSOR | REARHEAT |    -     |   -      |    -     |    -     |     -    |     -    |
+
+    TEMP - inside temperature, units in degrees Celsius ( -40 from decoded value)
+    Interval 1 sec
+    """
+    def __init__(self):
+        super(ACCCommand, self).__init__()
+        self._controller = None
+        print('ACCTempCommand init()')
+
+    def _execute(self, msg):
+        data = msg.get('data')
+        changed = data[0] >> 7 & 0x01
+        if changed:
+            rear_heat = data[1] >> 6 & 0x01
+            compressor_on = data[1] >> 7 & 0x01
+            temp = data[5] - 40
+        print("compressor_on: {}, temp: {}, rear_heat: {}".format(compressor_on, temp, rear_heat))
+
 
 
 CANCmdHandlers = {

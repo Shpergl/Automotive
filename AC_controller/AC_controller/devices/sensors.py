@@ -1,11 +1,11 @@
 from machine import Pin, Timer
 import onewire, ds18x20
 
-from multimedia_controller import settings
-from multimedia_controller.constants import UART_TYPES, AC_STATUS
-from multimedia_controller.controllers.climate_controller import get_climate_controller, get_temp_controller
-from multimedia_controller.helpers.observer import Observer
-from multimedia_controller.helpers.utils import round_float
+from AC_controller import settings
+from AC_controller.constants import UART_TYPES, AC_STATUS
+from AC_controller.controllers.climate_controller import get_climate_controller, get_temp_controller
+from AC_controller.helpers.observer import Observer
+from AC_controller.helpers.utils import round_float
 
 
 class OneWireTempSensor:

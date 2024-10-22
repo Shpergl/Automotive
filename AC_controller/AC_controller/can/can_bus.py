@@ -1,10 +1,10 @@
 from machine import Timer
 
-from multimedia_controller.libs import mcpcan
-from multimedia_controller.settings import CAN
+from AC_controller.libs import mcpcan
+from AC_controller.settings import CAN
 
-from multimedia_controller.helpers.observer import Observer
-from multimedia_controller.can.can_commands import CANCmdHandlers
+from AC_controller.helpers.observer import Observer
+from AC_controller.can.can_commands import CANCmdHandlers
 
 
 class CanBus(Observer):

@@ -1,4 +1,4 @@
-from multimedia_controller.helpers.observer import ControllerNotifier
+from AC_controller.helpers.observer import ControllerNotifier
 
 
 class BaseStateSelector:

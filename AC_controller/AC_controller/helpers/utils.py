@@ -1,5 +1,5 @@
-from multimedia_controller.constants import AC_FAN_DIR, AC_TEMP
-from multimedia_controller.settings import AC_LOWEST_TEMP, AC_HIGHEST_TEMP
+from AC_controller.constants import AC_FAN_DIR, AC_TEMP
+from AC_controller.settings import AC_LOWEST_TEMP, AC_HIGHEST_TEMP
 
 state_to_fan_dir_map = {
     1: AC_FAN_DIR.AC_FAN_DIR_DOWN,

@@ -1,28 +1,28 @@
 from machine import Pin
 
-from multimedia_controller import settings
-from multimedia_controller.constants import UART_TYPES
+from AC_controller import settings
+from AC_controller.constants import UART_TYPES
 
 
 def init_UART():
-    from multimedia_controller.uart.uart_bus import get_UART_bus
+    from AC_controller.uart.uart_bus import get_UART_bus
     uart = get_UART_bus()
     Pin(settings.UART.RX_PIN).irq(handler=uart.handle_uart_cmd, trigger=Pin.IRQ_FALLING)
 
 
 def init_CAN():
-    from multimedia_controller.can.can_bus import get_CAN_bus
+    from AC_controller.can.can_bus import get_CAN_bus
     global can
     can = get_CAN_bus()
 
 
 def init_devices():
-    from multimedia_controller.devices.relays import (ACCompressorRelay, ACCompressorFanRelay, ACCycleRelay,
+    from AC_controller.devices.relays import (ACCompressorRelay, ACCompressorFanRelay, ACCycleRelay,
                                                       ACRearWindowHeatRelay, ACCoolantRelay)
-    from multimedia_controller.devices.pwm_devices import (FanDirTemp, FanDirWindow, FanDirDownMiddle, SeatHeatL,
+    from AC_controller.devices.pwm_devices import (FanDirTemp, FanDirWindow, FanDirDownMiddle, SeatHeatL,
                                                            SeatHeatR, ACFan)
-    from multimedia_controller.devices.sid_text import SIDTextDevice
-    from multimedia_controller.devices.sensors import TempSensors
+    from AC_controller.devices.sid_text import SIDTextDevice
+    from AC_controller.devices.sensors import TempSensors
 
     ACCompressorRelay()
     ACCompressorFanRelay()

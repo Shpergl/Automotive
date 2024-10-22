@@ -1,10 +1,10 @@
 import time
 
-from multimedia_controller.can.can_bus import get_CAN_bus
-from multimedia_controller.constants import UART_TYPES, AC_COOL_MODE
-from multimedia_controller.controllers.climate_controller import get_climate_controller
-from multimedia_controller.helpers.observer import Observer
-from multimedia_controller.helpers.utils import chunk_string, ascii_to_hex
+from AC_controller.can.can_bus import get_CAN_bus
+from AC_controller.constants import UART_TYPES, AC_COOL_MODE
+from AC_controller.controllers.climate_controller import get_climate_controller
+from AC_controller.helpers.observer import Observer
+from AC_controller.helpers.utils import chunk_string, ascii_to_hex
 
 TEXT_FOR_EVENT = {
     AC_COOL_MODE.ON: "AC is ON"

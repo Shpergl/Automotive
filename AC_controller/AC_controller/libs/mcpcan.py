@@ -102,17 +102,6 @@ class CAN:
             self._spi_write_reg(b'\x04', filter.get('F1'))
             self._spi_write_reg(b'\x20', filter.get('M0'))
 
-            def _spi_write_bit(self, addr, mask, value):
-                '''
-                MCP2515_SPI instruction-bit modification
-                '''
-                self.cs.off()
-                self.spi.write(self.BIT_MODIFY)
-                self.spi.write(addr)
-                self.spi.write(mask)
-                self.spi.write(value)
-                self.cs.on()
-
         # Disable channel 2 message reception
         self._spi_write_bit(b'\x70', b'\x60', b'\x00')
         self._spi_write_reg(b'\x08', b'\xff\xff\xff\xff')
@@ -124,16 +113,6 @@ class CAN:
         # Set to normal mode or listening mode
         mode = b'\x60' if listen_only else b'\x00'
         self._spi_write_bit(b'\x0f', b'\xe0', mode)
-
-        self.set_interrupt()
-        #self._spi_write_bit(b'\x2b', b'\x01', b'\x01')
-        #self._spi_write_bit(b'\x2b', b'\xff', b'\xff')
-
-    def set_interrupt(self, mode=b'\x03'):
-        self._spi_write_bit(b'\x2b', mode, mode)
-
-    # def clear_iterrupt(self):
-    #     self._spi_write_bit(b'\x2c', b'\x03', b'\x00')
 
 
     def _set_speed(self,
@@ -269,11 +248,9 @@ select from {}'.format(''.join(speed.keys())))
         NOTE: Only one frame is returned at a time.
         '''
         self.check_rx()
-        print('recv_msg rx_buf:{}'.format(len(self._rx_buf)))
         if len(self._rx_buf) == 0:
             return None
         dat = self._rx_buf.pop(0)
-
         msg = {}
         msg['tm'] = int.from_bytes(dat[-8:], 'big')
         msg['dlc'] = int.from_bytes(dat[4: 5], 'big') & 0x0F
@@ -292,44 +269,6 @@ select from {}'.format(''.join(speed.keys())))
             msg['id'] = id_s0_s10
             msg['rtr'] = True if (int.from_bytes(
                 dat[1: 2], 'big') & 0x10) else False
-        #self.clear_iterrupt()
-        return msg
-
-    def process_msg(self, packet) -> dict:
-        '''
-        Requests whether the MCP2515 has received a message. If so, read it
-        in buffer. check_rx is called.
-        Requests whether the buffer has packets. If yes, return the earliest
-        received frame, otherwise return None.
-
-        Return Msg description:
-        msg ['tm']: Time to receive the message [ms]. Timer starts on power on.
-        msg ['id']: ID of the received message
-        msg ['ext']: Whether the received message is an extended frame
-        msg ['data']: Received message data
-        msg ['dlc']: Length of received message
-        msg ['rtr']: Whether the received message is a remote frame
-        NOTE: Only one frame is returned at a time.
-        '''
-
-        msg = {}
-        msg['tm'] = int.from_bytes(packet[-8:], 'big')
-        msg['dlc'] = int.from_bytes(packet[4: 5], 'big') & 0x0F
-        msg['data'] = packet[5:13]
-        # 0: standard frame 1: extended frame
-        ide = (int.from_bytes(packet[1: 2], 'big') >> 3) & 0x01
-        msg['ext'] = True if ide == 1 else False
-        id_s0_s10 = int.from_bytes(packet[: 2], 'big') >> 5
-        id_e16_e17 = int.from_bytes(packet[: 2], 'big') & 0x03
-        id_e0_e15 = int.from_bytes(packet[2: 4], 'big')
-        if msg['ext']:
-            msg['id'] = (id_s0_s10 << 18) + (id_e16_e17 << 16) + id_e0_e15
-            msg['rtr'] = True if (int.from_bytes(
-                packet[4: 5], 'big') & 0x40) else False
-        else:
-            msg['id'] = id_s0_s10
-            msg['rtr'] = True if (int.from_bytes(
-                packet[1: 2], 'big') & 0x10) else False
         return msg
 
 
@@ -341,7 +280,6 @@ select from {}'.format(''.join(speed.keys())))
         '''
         self.check_rx()
         if len(self._rx_buf) == 0:
-
             return None
         dat = self._rx_buf.pop(0)
         msg = {}
@@ -356,23 +294,6 @@ select from {}'.format(''.join(speed.keys())))
             return msg
 
 
-    def get_msg(self):
-        #rx_flag = int.from_bytes(self._spi_ReadStatus(), 'big')
-        #if (rx_flag & 0x01):
-        dat = self._spi_RecvMsg(0)
-        dat2 = self._spi_RecvMsg(1)
-        #tm = (time.ticks_ms()).to_bytes(8, 'big')
-        data = self.process_msg(dat)
-        return data
-
-
-        # if (rx_flag & 0x02):
-        #     dat = self._spi_RecvMsg(1)
-        #     tm = (time.ticks_ms()).to_bytes(8, 'big')
-        #     return self.process_msg(dat + tm)
-
-
-
     def check_rx(self):
         '''
         Query whether the MCP2515 has received a message. If so, store it in Buf and return TRUE, otherwise return False.
@@ -383,18 +304,12 @@ select from {}'.format(''.join(speed.keys())))
         rx_flag = int.from_bytes(self._spi_ReadStatus(), 'big')
         if (rx_flag & 0x01):
             dat = self._spi_RecvMsg(0)
-            #tm = (time.ticks_ms()).to_bytes(8, 'big')
-            #self._rx_buf.(dat + tm)
-            self._rx_buf.extend(dat)
+            tm = (time.ticks_ms()). to_bytes(8, 'big')
+            self._rx_buf.append(dat + tm)
         if (rx_flag & 0x02):
             dat = self._spi_RecvMsg(1)
-            #tm = (time.ticks_ms()).to_bytes(8, 'big')
-            #self._rx_buf.append(dat + tm)
-            self._rx_buf.extend(dat)
-        if (rx_flag & 0x03):
-            dat = self._spi_RecvMsg(2)
-            self._rx_buf.extend(dat)
-
+            tm = (time.ticks_ms()). to_bytes(8, 'big')
+            self._rx_buf.append(dat + tm)
         return True if (rx_flag & 0b11000000) else False
 
     RESET = b'\xc0'  # 1100 0000
@@ -402,11 +317,9 @@ select from {}'.format(''.join(speed.keys())))
     WRITE  = b'\x02' #  0000 0010
     BIT_MODIFY = b'\x05' #  0000 0101
     READ_STATUS = b'\xa0' #  1010 0000
-    READ_RX_STATUS = b'\xb0' #  1011 0000
     CNF1_ADDR  = b'\x2a' #  CONFIGURATION REGISTER 1
     CNF2_ADDR  = b'\x29' #  CONFIGURATION REGISTER 2
     CNF3_ADDR  = b'\x28' #  CONFIGURATION REGISTER 3
-    can_stat = b'\x21'
 
     def _spi_reset(self):
         '''
@@ -465,7 +378,6 @@ select from {}'.format(''.join(speed.keys())))
         self.cs.off()
         self.spi.write(self.READ_STATUS)
         buf = self.spi.read(1)
-        print('_spi_ReadStatus: {}'.format(buf))
         self.cs.on()
         return buf
 
@@ -475,47 +387,13 @@ select from {}'.format(''.join(speed.keys())))
         MCP2515_SPI instruction-read Rx buffer
         '''
         self.cs.off()
-        buf = []
         if select == 0:
             self.spi.write(b'\x90') #  1001 0000
-            #self.spi.write(b'\x92') #  1001 0010
-            buf.append(self.spi.read(8))
+            buf = self.spi.read(13)
         if select == 1:
             self.spi.write(b'\x94') #  1001 0100
-            buf.append(self.spi.read(8))
-        elif select == 2:
-            self.spi.write(b'\x90')  # 1001 0000
-            # self.spi.write(b'\x92') #  1001 0010
-            buf.append(self.spi.read(8))
-            self.spi.write(b'\x94')  # 1001 0100
-            buf.append(self.spi.read(8))
+            buf = self.spi.read(13)
         self.cs.on()
-        print('_spi_RecvMsg: {}'.format(buf))
-        return buf
-
-    def _spi_RecvMsg2(self, select):
-        '''
-        MCP2515_SPI instruction-read Rx buffer
-        '''
-        self.cs.off()
-        self.spi.write(b'\x94')  # 1001 0100
-        buf = self.spi.read(8)
-        print('_spi_RecvMsg RXB1SIDH: {}'.format(buf))
-        self.spi.write(b'\x96')  # 1001 0110
-        buf = self.spi.read(8)
-        print('_spi_RecvMsg RXB1D0: {}'.format(buf))
-
-
-        self.spi.write(b'\x90') #  1001 0000
-        buf = self.spi.read(8)
-        print('_spi_RecvMsg RXB0SIDH: {}'.format(buf))
-        self.spi.write(b'\x92') #  1001 0010
-        buf = self.spi.read(8)
-        print('_spi_RecvMsg RXB0D0: {}'.format(buf))
-
-
-        self.cs.on()
-        print('_spi_RecvMsg: {}'.format(buf))
         return buf
 
 

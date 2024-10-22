@@ -1,10 +1,10 @@
 from machine import Pin
 
-from multimedia_controller import settings
-from multimedia_controller.helpers.observer import Observer
-from multimedia_controller.constants import UART_TYPES, AC_COOL_MODE, AC_STATUS, AC_CYCLE_MODE, AC_REAR_WINDOW_HEAT, \
+from AC_controller import settings
+from AC_controller.helpers.observer import Observer
+from AC_controller.constants import UART_TYPES, AC_COOL_MODE, AC_STATUS, AC_CYCLE_MODE, AC_REAR_WINDOW_HEAT, \
     RELAY_STATUS
-from multimedia_controller.controllers.climate_controller import get_climate_controller
+from AC_controller.controllers.climate_controller import get_climate_controller
 
 """
 Init all devices in boot.py -> init_devices()

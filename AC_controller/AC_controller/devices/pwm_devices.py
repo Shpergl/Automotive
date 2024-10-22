@@ -1,10 +1,10 @@
 from machine import Pin, PWM
 
-from multimedia_controller import settings
-from multimedia_controller.helpers.observer import Observer
-from multimedia_controller.helpers.utils import scale, convertGuiTemp
-from multimedia_controller.constants import UART_TYPES, AC_FAN_DIR, FAN_DIR_SERVO_POSITION, CONTROLLER_NAMES, AC_STATUS
-from multimedia_controller.controllers.climate_controller import get_climate_controller, get_temp_controller
+from AC_controller import settings
+from AC_controller.helpers.observer import Observer
+from AC_controller.helpers.utils import scale, convertGuiTemp
+from AC_controller.constants import UART_TYPES, AC_FAN_DIR, FAN_DIR_SERVO_POSITION, CONTROLLER_NAMES, AC_STATUS
+from AC_controller.controllers.climate_controller import get_climate_controller, get_temp_controller
 
 """
 Init all devices in boot.py -> init_devices()

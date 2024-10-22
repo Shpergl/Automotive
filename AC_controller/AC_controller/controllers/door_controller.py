@@ -1,5 +1,5 @@
-from multimedia_controller.constants import DOOR_STATUS, UART_TYPES, DOOR_HEX_VALUE
-from multimedia_controller.controllers.base_controller import BaseController
+from AC_controller.constants import DOOR_STATUS, UART_TYPES, DOOR_HEX_VALUE
+from AC_controller.controllers.base_controller import BaseController
 
 
 class DoorController(BaseController):

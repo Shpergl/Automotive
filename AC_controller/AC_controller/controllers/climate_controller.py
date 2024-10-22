@@ -1,10 +1,10 @@
-from multimedia_controller import settings
-from multimedia_controller.constants import UART_TYPES, AC_CYCLE_MODE, AC_STATUS, AC_COOL_MODE, \
+from AC_controller import settings
+from AC_controller.constants import UART_TYPES, AC_CYCLE_MODE, AC_STATUS, AC_COOL_MODE, \
     AC_COOL_MODE_AUTO, AC_DUAL_MODE, AC_WINDOW_MAX, AC_FAN_DIR, AC_REAR_WINDOW_HEAT, CONTROLLER_NAMES
-from multimedia_controller.controllers.base_controller import BaseController, SequentialSelector, CycledSelector, \
+from AC_controller.controllers.base_controller import BaseController, SequentialSelector, CycledSelector, \
     BaseStateSelector
 
-from multimedia_controller.settings import FAN_SPEED_RANGE, SEAT_HEAT_RANGE, AC_TEMP_RANGE, EXT_TEMP_RANGE
+from AC_controller.settings import FAN_SPEED_RANGE, SEAT_HEAT_RANGE, AC_TEMP_RANGE, EXT_TEMP_RANGE
 
 
 class ClimateController(BaseController):

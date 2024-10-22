@@ -1,6 +1,9 @@
-from multimedia_controller.constants import UART_TYPES
-from multimedia_controller.settings import F_PARKING_RANGE, R_PARKING_RANGE
-from multimedia_controller.controllers.base_controller import BaseController
+from AC_controller.constants import UART_TYPES
+from AC_controller.settings import F_PARKING_RANGE, R_PARKING_RANGE
+from AC_controller.controllers.base_controller import BaseController
+
+from AC_controller.helpers.utils import scale
+from AC_controller.settings import PARKING_SENSOR_VALUES_RANGE
 
 
 class FrontParkingController(BaseController):
@@ -13,10 +16,10 @@ class FrontParkingController(BaseController):
 
     def get_packed_data(self):
         data = [0x00, 0x00, 0x00, 0x00]
-        data[0] = self.l
-        data[1] = self.lc
-        data[2] = self.rc
-        data[3] = self.r
+        data[0] = scale(PARKING_SENSOR_VALUES_RANGE, F_PARKING_RANGE.L, self.l)
+        data[1] = scale(PARKING_SENSOR_VALUES_RANGE, F_PARKING_RANGE.LC, self.lc)
+        data[2] = scale(PARKING_SENSOR_VALUES_RANGE, F_PARKING_RANGE.RC, self.rc)
+        data[3] = scale(PARKING_SENSOR_VALUES_RANGE, F_PARKING_RANGE.R, self.r)
         return data
 
 
@@ -30,10 +33,10 @@ class RearParkingController(BaseController):
 
     def get_packed_data(self):
         data = [0x00, 0x00, 0x00, 0x00]
-        data[0] = self.l
-        data[1] = self.lc
-        data[2] = self.rc
-        data[3] = self.r
+        data[0] = scale(PARKING_SENSOR_VALUES_RANGE, R_PARKING_RANGE.L, self.l)
+        data[1] = scale(PARKING_SENSOR_VALUES_RANGE, R_PARKING_RANGE.LC, self.lc)
+        data[2] = scale(PARKING_SENSOR_VALUES_RANGE, R_PARKING_RANGE.RC, self.rc)
+        data[3] = scale(PARKING_SENSOR_VALUES_RANGE, R_PARKING_RANGE.R, self.r)
         return data
 
 

@@ -1,0 +1,6 @@
+
+
+   ---- Transcoding 'C:\Users\a_shpergl\PycharmProjects\Automotive\AC_fan\hw\AC_fan\Project Outputs for AC_fan\GerberX2\AC_fan_Legend_Top.gbr' ----   Fri Aug 16 14:59:26 2024
+
+D22   --> D100
+-----------------------------------------------------------------

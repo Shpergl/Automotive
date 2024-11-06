@@ -2,11 +2,17 @@
 .idea/
 
 **/History
-!AC_controller/hw/Project Outputs for AC_controller/Gerber/
-**/Project Outputs *
-
-!**/Project Outputs */Gerber
-!**/Project Outputs */NC Drill
-
 **/Project Logs *
 **/__Previews
+
+**/Project Outputs for Free Documents
+**/Project Outputs for */*
+!**/Project Outputs for */BOM
+!**/Project Outputs for */ExportSTEP
+!**/Project Outputs for */Gerber/
+!**/Project Outputs for */GerberX2/
+!**/Project Outputs for */NC Drill
+!**/Project Outputs for */PCB Print
+!**/Project Outputs for */PDF3D
+!**/Project Outputs for */Pick Place
+!**/Project Outputs for */Schematic Print

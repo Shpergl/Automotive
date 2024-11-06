@@ -66,7 +66,7 @@ GenerateClassCluster=0
 DocumentUniqueId=PHNEFBMX
 
 [Document2]
-DocumentPath=AC_controller_v1_0.PcbDoc
+DocumentPath=AC_controller_v1_1.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -569,27 +569,171 @@ DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_0_Solde
 DItemRevisionGUID=
 
 [GeneratedDocument46]
-DocumentPath=Project Outputs for AC_controller\BOM\Bill of Materials-AC_controller.xlsx
+DocumentPath=Project Outputs for AC_controller\NC Drill\AC_controller_v1_1-Plated.TXT
 DItemRevisionGUID=
 
 [GeneratedDocument47]
-DocumentPath=Project Outputs for AC_controller\Design Rule Check - AC_controller_v1_0.html
+DocumentPath=Project Outputs for AC_controller\NC Drill\AC_controller_v1_1.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument48]
-DocumentPath=Project Outputs for calibra_project\Design Rule Check - Multimedia_controller.html
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument49]
-DocumentPath=Project Outputs for calibra_project\Design Rule Check - Multimedia_controller_v2.html
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument50]
-DocumentPath=Multimedia_controller_v2 8-6-2024 9-14-16 PM.WAS
+DocumentPath=Project Outputs for AC_controller\NC Drill\AC_controller_v1_1.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument51]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1.REP
+DItemRevisionGUID=
+
+[GeneratedDocument52]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1.REP
+DItemRevisionGUID=
+
+[GeneratedDocument53]
+DocumentPath=Project Outputs for AC_controller\ExportSTEP\AC_controller_v1_1.step
+DItemRevisionGUID=
+
+[GeneratedDocument54]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Board.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument55]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Board.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument56]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Copper_Signal_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument57]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Copper_Signal_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument58]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Copper_Signal_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument59]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Copper_Signal_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument60]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Drawing_1.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument61]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Drawing_1.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument62]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Drillmap_1.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument63]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Drillmap_1.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument64]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Legend_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument65]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Legend_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument66]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Legend_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument67]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Legend_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument68]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_NPTH_Drill.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument69]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Paste_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument70]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Paste_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument71]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Paste_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument72]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Paste_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument73]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Profile.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument74]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Profile.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument75]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_PTH_Drill.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument76]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Soldermask_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument77]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Soldermask_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument78]
+DocumentPath=Project Outputs for AC_controller\Gerber\AC_controller_v1_1_Soldermask_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument79]
+DocumentPath=Project Outputs for AC_controller\GerberX2\AC_controller_v1_1_Soldermask_Top.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument80]
+DocumentPath=Project Outputs for AC_controller\BOM\Bill of Materials-AC_controller.xlsx
+DItemRevisionGUID=
+
+[GeneratedDocument81]
+DocumentPath=Project Outputs for AC_controller\Design Rule Check - AC_controller_v1_0.html
+DItemRevisionGUID=
+
+[GeneratedDocument82]
+DocumentPath=Project Outputs for AC_controller\Design Rule Check - AC_controller_v1_1.html
+DItemRevisionGUID=
+
+[GeneratedDocument83]
+DocumentPath=Project Outputs for calibra_project\Design Rule Check - Multimedia_controller.html
+DItemRevisionGUID=
+
+[GeneratedDocument84]
+DocumentPath=Project Outputs for calibra_project\Design Rule Check - Multimedia_controller_v2.html
+DItemRevisionGUID=
+
+[GeneratedDocument85]
+DocumentPath=Multimedia_controller_v2 8-6-2024 9-14-16 PM.WAS
+DItemRevisionGUID=
+
+[GeneratedDocument86]
 DocumentPath=Project Outputs for AC_controller\Pick Place\Pick Place for AC_controller_v1_0.txt
+DItemRevisionGUID=
+
+[GeneratedDocument87]
+DocumentPath=Project Outputs for AC_controller\Pick Place\Pick Place for AC_controller_v1_1.txt
 DItemRevisionGUID=
 
 [Configuration1]

@@ -1,0 +1,8 @@
+
+
+   ---- Transcoding 'C:\Users\a_shpergl\PycharmProjects\Automotive\AC_fan\hw\AC_fan\Project Outputs for AC_fan\NC Drill\AC_fan-Plated.TXT' ----   Fri Aug 16 15:01:37 2024
+
+T1   --> T5
+T2   --> T6
+T4   --> T7
+-----------------------------------------------------------------

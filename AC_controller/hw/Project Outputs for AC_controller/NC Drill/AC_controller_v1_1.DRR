@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: AC_controller_v1_1.PcbDoc   11/6/2024  8:23:20 PM
+NCDrill File Report For: AC_controller_v1_1.PcbDoc   1/3/2025  2:24:22 PM
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -7,11 +7,11 @@ ASCII Plated RoundHoles File : AC_controller_v1_1-Plated.TXT
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      0.711mm (28mil)                                           Round             43        PTH        565.02mm (22.25inch)
+T1      0.711mm (28mil)                                           Round             41        PTH        518.99mm (20.43inch)
 T2      1.1mm (43mil)                                             Round             128       PTH        825.52mm (32.50inch)
 T3      2.1mm (83mil)                                             Round             4         PTH        69.80mm (2.75inch)
 T4      3mm (118mil)                                              Round             8         PTH        432.26mm (17.02inch)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              183
+Totals                                                                              181
 
 Total Processing Time (hh:mm:ss) : 00:00:00

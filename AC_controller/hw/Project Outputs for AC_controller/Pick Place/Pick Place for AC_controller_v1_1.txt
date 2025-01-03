@@ -4,13 +4,17 @@ D:\MyProjects\Automotive\Calibra\Automotive\AC_controller\hw\Project Outputs for
 ========================================================================================================================
 File Design Information:
 
-Date:       06/11/24
-Time:       20:23
-Revision:   Not in VersionControl
+Date:       03/01/25
+Time:       14:24
+Revision:   ec97e706e0c3c9498c3bed845fa9675931a32e77
 Variant:    No variations
 Units used: mil
 
 Designator Comment                                Layer    Footprint             Center-X(mil) Center-Y(mil) Rotation Description                                                                
+D10        DIO                                    TopLayer DO-214AC              3431.102      3558.071      270      "M7 Diode, max 30A"                                                        
+D13        DIO                                    TopLayer DO-214AC              2269.685      3562.008      270      "M7 Diode, max 30A"                                                        
+D16        DIO                                    TopLayer DO-214AC              2651.575      3561.024      270      "M7 Diode, max 30A"                                                        
+D19        DIO                                    TopLayer DO-214AC              3041.338      3562.008      270      "M7 Diode, max 30A"                                                        
 C21        CAP                                    TopLayer CAPC2012X88N          1653.543      2269.685      180      ""                                                                         
 R53        RES                                    TopLayer RESC2012X60N          2611.220      1865.158      90       "RESISTOR, 0805, 10K, 1%, SMD"                                             
 R52        RES                                    TopLayer RESC2012X60N          3739.173      2962.598      270      "RESISTOR, 0805, 10K, 1%, SMD"                                             
@@ -42,13 +46,9 @@ Q8         TRS_NPN_123                            TopLayer SOT23                
 Q5         TRS_NPN_123                            TopLayer SOT23                 2275.591      3799.213      270      "Bipolar Transistors - BJT NPN 45V 100mA"                                  
 Q4         TRS_NPN_123                            TopLayer SOT23                 3437.008      3795.276      270      "Bipolar Transistors - BJT NPN 45V 100mA"                                  
 D20        IC_LiteOn_LTV817                       TopLayer IC_LiteOn__LTV-817S   3222.441      3474.409      90       "Transistor Output Optocouplers Optocoupler Phototrans"                    
-D19        DIO                                    TopLayer DO-214AC              3041.338      3562.008      90       "M7 Diode, max 30A"                                                        
 D17        IC_LiteOn_LTV817                       TopLayer IC_LiteOn__LTV-817S   2834.646      3474.409      90       "Transistor Output Optocouplers Optocoupler Phototrans"                    
-D16        DIO                                    TopLayer DO-214AC              2651.575      3561.023      90       "M7 Diode, max 30A"                                                        
 D14        IC_LiteOn_LTV817                       TopLayer IC_LiteOn__LTV-817S   2460.630      3474.409      90       "Transistor Output Optocouplers Optocoupler Phototrans"                    
-D13        DIO                                    TopLayer DO-214AC              2269.685      3562.008      90       "M7 Diode, max 30A"                                                        
 D11        IC_LiteOn_LTV817                       TopLayer IC_LiteOn__LTV-817S   3622.047      3470.472      90       "Transistor Output Optocouplers Optocoupler Phototrans"                    
-D10        DIO                                    TopLayer DO-214AC              3431.102      3558.071      90       "M7 Diode, max 30A"                                                        
 R13        RES                                    TopLayer RESC2012X60N          886.811       2650.591      180      "RESISTOR, 0805, 10K, 1%, SMD"                                             
 C6         CAP                                    TopLayer CAPC2012X88N          885.827       2534.449      0        ""                                                                         
 R21        RES                                    TopLayer RESC2012X60N          1722.441      1531.496      180      "RESISTOR, 0805, 100R, 1%, SMD"                                            
@@ -96,8 +96,7 @@ M2         MOD_MCP2515                            TopLayer MOD_MCP2515          
 M1         MOD_Raspberry_Pi_Pico                  TopLayer MOD_Raspberry_Pi_Pico 2844.488      2411.418      90       "Single Board Computers Raspberry Pi Pico"                                 
 IC1        IC_ADS1115IDGSR                        TopLayer VSSOP-10              1188.976      2496.063      0        "Analog to Digital Converters - ADC 16B ADC w/ Int MUX PGA Comp Osc & Ref" 
 D6         IC_LiteOn_LTV817                       TopLayer IC_LiteOn__LTV-817S   1318.898      216.536       180      "Transistor Output Optocouplers Optocoupler Phototrans"                    
-D5         DIO                                    TopLayer DO-214AC              964.567       167.323       180      "M7 Diode, max 30A"                                                        
-D2         DIO_UNIDIRECTIONAL_TVS                 TopLayer DO-214AC              124.016       292.323       90       "Transient Voltage Suppressors"                                            
+D2         DIO_UNIDIRECTIONAL_TVS                 TopLayer DO-214AC              116.838       295.449       90       "Transient Voltage Suppressors"                                            
 D3         DIO_UNIDIRECTIONAL_TVS                 TopLayer DO-214AC              651.575       727.362       90       "Transient Voltage Suppressors"                                            
 D1         IC_LiteOn_LTV817                       TopLayer IC_LiteOn__LTV-817S   1584.646      708.661       90       "Transistor Output Optocouplers Optocoupler Phototrans"                    
 D12        IC_LiteOn_LTV817                       TopLayer IC_LiteOn__LTV-817S   1255.906      1113.189      180      "Transistor Output Optocouplers Optocoupler Phototrans"                    
